@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Autonomous Sandbox</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 1rem; }
+    section { margin-bottom: 1.5rem; }
+    pre { background: #f6f8fa; padding: 0.5rem; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>Autonomous Sandbox Dashboard ({{ config.name }})</h1>
+  <section>
+    <h2>Identity</h2>
+    <pre>{{ identity }}</pre>
+  </section>
+  <section>
+    <h2>Recent Memory</h2>
+    <pre>{{ memory|tojson(indent=2) }}</pre>
+  </section>
+  <section>
+    <h2>Agents</h2>
+    <pre>{{ agents|tojson(indent=2) }}</pre>
+  </section>
+  <section>
+    <h2>Controls</h2>
+    <button onclick="fetch('/sync/export').then(r=>r.json()).then(data=>alert('Exported to '+data.export_path))">Manual Sync Export</button>
+    <button onclick="fetch('/controls/start', {method:'POST'}).then(()=>alert('Started'))">Start</button>
+    <button onclick="fetch('/controls/stop', {method:'POST'}).then(()=>alert('Stopped'))">Stop</button>
+  </section>
+</body>
+</html>
